@@ -1,10 +1,9 @@
 import face_recognition
-import cv2
 import numpy as np
 from pil import Image, ImageDraw
 
 # def create_image(shape):
-#     img = np.zeros([400, 400, 3], np.uint8)+255
+#     img = np.zeros(shape, np.uint8)+255
 #     img.save('output/mask.jpg')
 
 image_name = 'Tzu-yu.jpg'
@@ -21,20 +20,6 @@ pil_image.save('output/_face_detect_' + image_name)
 
 face_landmarks_lists = face_recognition.face_landmarks(image)
 for face_landmarks in face_landmarks_lists:
-
-    # 找出每張臉的輪廓產生臉部mask
-    # top_lip = face_landmarks['top_lip']
-    # bottom_lip = face_landmarks['bottom_lip']
-    # left_eyebrow = face_landmarks['left_eyebrow']
-    # right_eyebrow = face_landmarks['right_eyebrow']
-    # left_eye = face_landmarks['left_eye']
-    # right_eye = face_landmarks['right_eye']
-    # nose_tip = face_landmarks['nose_tip']
-    # nose_bridge = face_landmarks['nose_bridge']
-    # chin = face_landmarks['chin']
-    # chin.reverse()
-    # list_all = top_lip + bottom_lip + left_eyebrow + right_eyebrow + left_eye + right_eye + nose_tip + nose_bridge
-    # face_line.append(list_all)
 
     # white background
     mask = np.zeros(image.shape, np.uint8) + 255
@@ -72,8 +57,8 @@ for face_landmarks in face_landmarks_lists:
     d.polygon(face_landmarks['nose_bridge'], fill=(0, 0, 0, 255))
     d.line(face_landmarks['nose_bridge'], fill=(0, 0, 0, 255), width=1)
     # chin
-    # d.polygon(face_landmarks['chin'], fill=(0, 0, 0, 255))
-    # d.line(face_landmarks['chin'], fill=(0, 0, 0, 255), width=3)
+    d.polygon(face_landmarks['chin'], fill=(255, 255, 255, 0))
+    d.line(face_landmarks['chin'], fill=(0, 0, 0, 255), width=3)
 
 pil_image.show()
 pil_image.save("output/_draw_face_identification_" + image_name)

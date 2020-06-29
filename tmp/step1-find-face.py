@@ -5,7 +5,7 @@ from skimage import io
 
 # Take the image file name from the command line
 # file_name = sys.argv[1]
-file_path = 'test/Will_Ferrell.JPG'
+file_path = 'input/Will_Ferrell.JPG'
 
 # Create a HOG face detector using the built-in dlib class
 face_detector = dlib.get_frontal_face_detector()
