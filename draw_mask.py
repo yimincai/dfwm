@@ -6,10 +6,10 @@ from pil import Image, ImageDraw
 #     img = np.zeros(shape, np.uint8)+255
 #     img.save('output/mask.jpg')
 
-image_name = 'Tzu-yu.jpg'
+image_name = 'a.jpg'
 face_line = list()
 mask_path = 'output/mask.jpg'
-image = face_recognition.load_image_file('input/Tzu-yu.jpg')
+image = face_recognition.load_image_file('input/a.jpg')
 face_locations = face_recognition.face_locations(image, model='cnn')
 top, right, bottom, left = face_locations[0]
 print('A face is located at pixel location Top: {}, Left: {}, Bottom: {}, Right: {}'.format(top, left, bottom, right))
