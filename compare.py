@@ -23,7 +23,7 @@ faces_folder_path = "./rec"
 
 # 需要辨識的人臉圖片名稱
 # img_path = sys.argv[1]
-img_path = 'output/_draw_face_identification_Tzu-yu.jpg'
+img_path = 'output/_after_draw_Tzu-yu.jpg'
 
 # 載入人臉檢測器
 detector = dlib.get_frontal_face_detector()
@@ -32,7 +32,7 @@ detector = dlib.get_frontal_face_detector()
 sp = dlib.shape_predictor(predictor_path)
 
 # 載入人臉辨識檢測器
-facerec = dlib.face_recognition_model_v1(face_rec_model_path)
+face_rec = dlib.face_recognition_model_v1(face_rec_model_path)
 
 # 比對人臉描述子列表
 descriptors = []
@@ -51,14 +51,14 @@ for f in glob.glob(os.path.join(faces_folder_path, "*.jpg")):
     img = io.imread(f)
 
     # 1.人臉偵測
-    dets = detector(img, 1)
+    detects = detector(img, 1)
 
-    for k, d in enumerate(dets):
+    for k, d in enumerate(detects):
         # 2.特徵點偵測
         shape = sp(img, d)
 
         # 3.取得描述子，128維特徵向量
-        face_descriptor = facerec.compute_face_descriptor(img, shape)
+        face_descriptor = face_rec.compute_face_descriptor(img, shape)
 
         # 轉換numpy array格式
         v = numpy.array(face_descriptor)
@@ -66,12 +66,12 @@ for f in glob.glob(os.path.join(faces_folder_path, "*.jpg")):
 
 # 針對需要辨識的人臉同樣進行處理
 img = io.imread(img_path)
-dets = detector(img, 1)
+detects = detector(img, 1)
 
 dist = []
-for k, d in enumerate(dets):
+for k, d in enumerate(detects):
     shape = sp(img, d)
-    face_descriptor = facerec.compute_face_descriptor(img, shape)
+    face_descriptor = face_rec.compute_face_descriptor(img, shape)
     d_test = numpy.array(face_descriptor)
 
     x1 = d.left()
@@ -91,6 +91,7 @@ c_d = dict(zip(candidate, dist))
 
 # 根據歐式距離由小到大排序
 cd_sorted = sorted(c_d.items(), key=lambda d: d[1])
+print(cd_sorted)
 # 取得最短距離就為辨識出的人名
 rec_name = cd_sorted[0][0]
 

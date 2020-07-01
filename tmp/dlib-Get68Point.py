@@ -1,14 +1,5 @@
 import dlib
-import numpy as np
 import cv2
-import face_recognition
-import sys
-import dlib
-import cv2
-import os
-import glob
-import numpy as np
-from pil import Image, ImageDraw, ImageFont
 
 flag = 0
 # 模型路徑
@@ -24,7 +15,7 @@ shape_predictor = dlib.shape_predictor(predictor_path)
 face_rec_model = dlib.face_recognition_model_v1(face_rec_model_path)
 
 # 圖片辨識
-img = cv2.imread('test/edward.jpg')
+img = cv2.imread('test/Edward.jpg')
 gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 faces = detector(gray, 1)
 
